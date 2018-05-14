@@ -1,0 +1,14 @@
+﻿{
+	"MeeleAttacks"  :[
+		{"Name":"MetalPunch"  ,"Damage":20  },
+		{"Name":"Punch"       ,"Damage":10  },
+		{"Name":"Kick"        ,"Damage":15  },
+		{"Name":"InstantKill" ,"Damage":100 }
+	],
+	"DistanceAttacks":[
+		{"Name":"Rifle"          ,"FireRate":5  ,"FieldOfFire":20.3 ,"Recoil":3  ,"Magazine":20 ,"Damage":30 },
+		{"Name":"Pistol"         ,"FireRate":2  ,"FieldOfFire":10   ,"Recoil":4  ,"Magazine":5  ,"Damage":15 },
+		{"Name":"Sub-Machinegun" ,"FireRate":15 ,"FieldOfFire":45   ,"Recoil":1  ,"Magazine":30 ,"Damage":5  },
+		{"Name":"Shotgun"        ,"FireRate":1  ,"FieldOfFire":45   ,"Recoil":10 ,"Magazine":2  ,"Damage":50 }
+	]
+}
