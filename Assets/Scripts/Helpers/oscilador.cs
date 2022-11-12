@@ -18,6 +18,9 @@ public class oscilador : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(Input.GetKeyDown(KeyCode.Space)){
+			//DialogueManager.StartDialogue("Conversation");
+		}
 		//time += Time.deltaTime;
 		//if (time>0.5) {
 			RandIntensity = Random.Range(IntMinIntensity,IntMaxIntensity);

@@ -1,0 +1,734 @@
+fileFormatVersion: 2
+guid: cf5c0ab90081a704ca0a008e2c79c49c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8104203021711178006
+    second: AttackRD_0
+  - first:
+      213: 835763222382762423
+    second: AttackRD_1
+  - first:
+      213: -2093806313589682115
+    second: AttackRD_2
+  - first:
+      213: -7682638826666966179
+    second: AttackRD_3
+  - first:
+      213: 8069146178602887335
+    second: AttackRD_4
+  - first:
+      213: 547706927362027236
+    second: AttackRD_5
+  - first:
+      213: -1212046974601040156
+    second: AttackRD_6
+  - first:
+      213: -6224718214150157391
+    second: AttackRD_7
+  - first:
+      213: -8222449113469708011
+    second: AttackRD_8
+  - first:
+      213: -1032610010092773897
+    second: AttackRD_9
+  - first:
+      213: -1878189610889567817
+    second: AttackRD_10
+  - first:
+      213: -9181557807259868334
+    second: AttackRD_11
+  - first:
+      213: -2293945331866994263
+    second: AttackRD_12
+  - first:
+      213: -6082511483758203596
+    second: AttackRD_13
+  - first:
+      213: 2238216948180879326
+    second: AttackRD_14
+  - first:
+      213: -3279805888472539553
+    second: AttackRD_15
+  - first:
+      213: 3270253406885456075
+    second: AttackRD_16
+  - first:
+      213: -822543923767813001
+    second: AttackRD_17
+  - first:
+      213: 224805200533992765
+    second: AttackRD_18
+  - first:
+      213: -1274630928166325990
+    second: AttackRD_19
+  - first:
+      213: 2517169650940452641
+    second: AttackRD_20
+  - first:
+      213: -5927761615694997734
+    second: AttackRD_21
+  - first:
+      213: 5124250435009150267
+    second: AttackRD_22
+  - first:
+      213: -5393354383317479699
+    second: AttackRD_23
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 8.6
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: AttackRD_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.1319586, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 121ea9da4a6337b4c947ac3d23dc4707
+      internalID: 8104203021711178006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackRD_1
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.1319586, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b30fe55caa6c7140a4b9432b5de5a86
+      internalID: 835763222382762423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackRD_2
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.1319586, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e56937899fdf7f24dbb8fb83c4b6ca6e
+      internalID: -2093806313589682115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackRD_3
+      rect:
+        serializedVersion: 2
+        x: 415
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.1319586, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 296f9f3ac9e66a64f899e63cdd2f573e
+      internalID: -7682638826666966179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackRD_4
+      rect:
+        serializedVersion: 2
+        x: 553
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.1319586, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f58770ed511f4443a933ceb226d5cb0
+      internalID: 8069146178602887335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackRD_5
+      rect:
+        serializedVersion: 2
+        x: 691
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.1319586, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b0994061fc281441abb17e2b1c13e5d
+      internalID: 547706927362027236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackRD_6
+      rect:
+        serializedVersion: 2
+        x: 829
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.1319586, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 626c450628321e54db6478013fc30aab
+      internalID: -1212046974601040156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackRD_7
+      rect:
+        serializedVersion: 2
+        x: 967
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.1319586, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 173e02cff63ea214197ffaabbb997a27
+      internalID: -6224718214150157391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackRD_8
+      rect:
+        serializedVersion: 2
+        x: 1105
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.1319586, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc7319d3c53389d49b094a0c12a29caf
+      internalID: -8222449113469708011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackRD_9
+      rect:
+        serializedVersion: 2
+        x: 1243
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.1319586, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e129f8b6c90fe3a42abfd0052cd5740a
+      internalID: -1032610010092773897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackRD_10
+      rect:
+        serializedVersion: 2
+        x: 1381
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.1319586, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4c156bccf101d44a8c5aaf92261e5f0
+      internalID: -1878189610889567817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackRD_11
+      rect:
+        serializedVersion: 2
+        x: 1519
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.1319586, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42d17919d228c8d42b5c4c22e8e26193
+      internalID: -9181557807259868334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackRD_12
+      rect:
+        serializedVersion: 2
+        x: 1657
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.1319586, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c245078a646dc7f45a2d1ab5b9b0a568
+      internalID: -2293945331866994263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackRD_13
+      rect:
+        serializedVersion: 2
+        x: 1795
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.1319586, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c110b05953f7f484785b8582d999a827
+      internalID: -6082511483758203596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackRD_14
+      rect:
+        serializedVersion: 2
+        x: 1933
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.1319586, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c86d67eaddc4044d962b3d7a0278cf5
+      internalID: 2238216948180879326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackRD_15
+      rect:
+        serializedVersion: 2
+        x: 2071
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.1319586, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce88b73ab6786de409a3b998276fd68f
+      internalID: -3279805888472539553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackRD_16
+      rect:
+        serializedVersion: 2
+        x: 2209
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.1319586, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ede086282d59475439589fc1826f9a2c
+      internalID: 3270253406885456075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackRD_17
+      rect:
+        serializedVersion: 2
+        x: 2347
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.1319586, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20d91ec31a6b26043b8e2d10ad9644b7
+      internalID: -822543923767813001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackRD_18
+      rect:
+        serializedVersion: 2
+        x: 2485
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.1319586, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cca483229022b447a401bbd0fbda388
+      internalID: 224805200533992765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackRD_19
+      rect:
+        serializedVersion: 2
+        x: 2623
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.1319586, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5a55311c8180da409fe6602c0c475d4
+      internalID: -1274630928166325990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackRD_20
+      rect:
+        serializedVersion: 2
+        x: 2761
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.1319586, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 186bdd7f8d5f769499e13e3402fd02a0
+      internalID: 2517169650940452641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackRD_21
+      rect:
+        serializedVersion: 2
+        x: 2899
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.1319586, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c110d130e36e0b8448a60c2d7f23ea0c
+      internalID: -5927761615694997734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackRD_22
+      rect:
+        serializedVersion: 2
+        x: 3037
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.1319586, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c727e51c705f2c46b4ab6c8f25e143a
+      internalID: 5124250435009150267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AttackRD_23
+      rect:
+        serializedVersion: 2
+        x: 3175
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.1319586, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4062756daae30dc4e900a7f80b3227a9
+      internalID: -5393354383317479699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      AttackRD_12: -2293945331866994263
+      AttackRD_15: -3279805888472539553
+      AttackRD_18: 224805200533992765
+      AttackRD_23: -5393354383317479699
+      AttackRD_8: -8222449113469708011
+      AttackRD_9: -1032610010092773897
+      AttackRD_17: -822543923767813001
+      AttackRD_1: 835763222382762423
+      AttackRD_4: 8069146178602887335
+      AttackRD_0: 8104203021711178006
+      AttackRD_16: 3270253406885456075
+      AttackRD_7: -6224718214150157391
+      AttackRD_21: -5927761615694997734
+      AttackRD_2: -2093806313589682115
+      AttackRD_10: -1878189610889567817
+      AttackRD_19: -1274630928166325990
+      AttackRD_22: 5124250435009150267
+      AttackRD_3: -7682638826666966179
+      AttackRD_6: -1212046974601040156
+      AttackRD_5: 547706927362027236
+      AttackRD_20: 2517169650940452641
+      AttackRD_11: -9181557807259868334
+      AttackRD_13: -6082511483758203596
+      AttackRD_14: 2238216948180879326
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

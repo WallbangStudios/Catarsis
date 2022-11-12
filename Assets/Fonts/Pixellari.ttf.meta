@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 11ec831328aeb7d4892f3726e58a6d0a
+timeCreated: 1532246505
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Pixellari
+  fontNames:
+  - Pixellari
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

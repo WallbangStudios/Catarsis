@@ -9,6 +9,8 @@ public class ParallaxScript : MonoBehaviour {
 
     public float Smoothing;
 
+    public bool freezey, freezex;
+
 
     private Transform Came;
     private Vector3 PreviousCamPos;
@@ -30,9 +32,19 @@ public class ParallaxScript : MonoBehaviour {
         for (int i = 0; i < Elements.Length; i++) {
             Vector3 Parallax = (PreviousCamPos - Came.position) * (Elements[i].ParallaxScale / Smoothing);
 
-            Elements[i].Background.position = new Vector3(Elements[i].Background.position.x + Parallax.x, 
-                                                            Elements[i].Background.position.y + Parallax.y, 
-                                                                Elements[i].Background.position.z);
+            float x, y, z;
+
+            y = Elements[i].Background.position.y;
+            x = Elements[i].Background.position.x;
+            z = Elements[i].Background.position.z;
+
+            if (!freezey)
+                y += Parallax.y;
+
+            if (!freezex)
+                x += Parallax.x;
+
+            Elements[i].Background.position = new Vector3(x, y, z);
         }
         PreviousCamPos = Came.position;
 

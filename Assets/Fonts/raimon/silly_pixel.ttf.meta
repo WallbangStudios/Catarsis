@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 15a48a77f1790f241a1b5b297d50e9ff
+timeCreated: 1532246924
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Silly Pixel
+  fontNames:
+  - Silly Pixel
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

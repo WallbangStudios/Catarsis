@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: e9ba2bc34ab16f34c93545db5c1f8d3f
+timeCreated: 1532246924
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Pixelicious
+  fontNames:
+  - Pixelicious
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

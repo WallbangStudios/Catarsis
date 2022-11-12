@@ -1,30 +1,61 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
+using Light2D;
 
+[System.Serializable]
+public class Impact {
+    public float ImpulseMagnitude;
+    public float accelerationGrounded, accelerationAirbone;
+
+    public Impact() {
+        ImpulseMagnitude = 0;
+        accelerationAirbone = 0;
+        accelerationGrounded = 0;
+    }
+
+    public Impact(float impulsemagnitude, float accGrounded = 0, float accAirbone = 0) {
+        ImpulseMagnitude = impulsemagnitude;
+        accelerationGrounded = accGrounded;
+        accelerationAirbone = accAirbone;
+    }
+}
 
 /// <summary>
 /// Character in Any Combatable object in Gameplay
 /// </summary>
+[RequireComponent(typeof(Controller2D))]
 public class Character : MonoBehaviour {
 
     /// <summary>
-    /// Animator of the character(Read Only)
+    /// Animator of the character(Read Only)e
     /// </summary>
     //Animador del Personaje
     public Animator anim { get; private set; }
 
-    /// <summary>
-    /// Rigidbody2D of the Character(Read Only)
-    /// </summary>
-    //RigidBody del personaje
-    public Rigidbody2D Rb2D { get; private set; }
+    public float jumpHeight = 4;
+    public float timeToJumpApex = .4f;
+    public float DesacelerationTimeAirbone = .2f;
+    public float DesacelerationTimeGrounded = .1f;
+    float moveSpeed = 6;
+
+    float gravity;
+    float jumpVelocity;
+    public Vector3 velocity;
+    float velocityXSmoothing;
+
+    [HideInInspector]
+    public Controller2D controller;
+
+    public bool SmoothMovement;
 
     /// <summary>
     /// BoxCollider2D of the Character
     /// </summary>
     //BoxCollider del personaje
-    public BoxCollider2D Coll { get; private set; }
+    public BoxCollider2D AttackReciever;
+    public BoxCollider2D ShootReciever;
 
     /// <summary>
     /// This is the Time Since the level Load(Read Only)
@@ -37,24 +68,29 @@ public class Character : MonoBehaviour {
     /// This is The Current Health of the Character(Read Only)
     /// </summary>
     // Cantidad de vida que tiene el personaje actualmente
-    public float CurrentHealth { get; private set; }
-    [SerializeField] float MaxHealth;
+    public int CurrentHealth;
+    public int MaxHealth;
 
-    bool Canchange;
+    //Variable auxiliar para la Funcion Trigger
     /// <summary>
     /// This is a trigger Function, that returns True only in One Frame
     /// </summary>
     /// <param name="Boolean"></param>
     /// <returns></returns>
     // Esto es un trigger, devuelve True solo en un frame
-    public bool Trigger(bool Boolean) {
-
+    public static bool Trigger(bool Boolean, ref bool Canchange)
+    {
+        
+        //Si es true y es el primer frame
         if (Boolean && !Canchange) {
+            //El Auxiliar sera true para que esta condicional no se cumpla
             Canchange = Boolean;
             return true;
         }
-        if (!Boolean)
+        //Si se deja de ser true y pasa a false, entonces se reinicia todo
+        if (!Boolean && Canchange)
             Canchange = Boolean;
+        //Si la condicional principal no se cumple, Siempre arrojara falso
         return false;
     }
 
@@ -68,12 +104,64 @@ public class Character : MonoBehaviour {
     /// </summary>
     // La velocidad con la que se movera el personaje
     public float Speed { get; set; }
+
+    public void OnJumpInputDown()
+    {
+        if (controller.collisions.below)
+            velocity.y = jumpVelocity;
+    }
+    
+    //metodo de impulso para el empuje
+    public void Impulse(Impact Parameter)
+    {
+        //activar el suavizado del empuje
+        SmoothMovement = true;
+        //hacer set de las aceleraciones si se quiere hacer
+        if (Parameter.accelerationGrounded != 0)
+            DesacelerationTimeGrounded = Parameter.accelerationGrounded;
+        if (Parameter.accelerationAirbone != 0)
+            DesacelerationTimeAirbone = Parameter.accelerationAirbone;
+        //impulsar
+        velocity.x = Parameter.ImpulseMagnitude;
+        //desactivar cuando llegue a 0 o cerca
+        StartCoroutine(DeactivateSmooth());
+    }
+
+    IEnumerator DeactivateSmooth()
+    {
+        bool analize = true;
+        float time = 0;
+        while (analize)
+        {
+            if (time > ((controller.collisions.below) ? DesacelerationTimeGrounded : DesacelerationTimeAirbone))
+            {
+                analize = false;
+            }
+            yield return null;
+            time += Time.deltaTime;
+        }
+        SmoothMovement = false;
+    }
+
     /// <summary>
     /// (Virtual Void) The movement of the Character
     /// </summary>
     // Movimiento del personaje
     public virtual void Movement() {
-        Rb2D.velocity = new Vector2(Direction.normalized.x * Speed, Rb2D.velocity.y);
+        //Movimiento rectilineo uniforme horizontal
+        float targetvelocityX = Direction.x * Speed;
+        if (SmoothMovement)
+            velocity.x = Mathf.SmoothDamp(velocity.x, targetvelocityX, ref velocityXSmoothing, (controller.collisions.below) ? DesacelerationTimeGrounded : DesacelerationTimeAirbone);
+        else
+            velocity.x = targetvelocityX;
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
+
+        if (controller.collisions.above || controller.collisions.below)
+        {
+            velocity.y = 0;
+        }
+        //Rb2D.velocity = new Vector2(Direction.normalized.x * Speed, Rb2D.velocity.y);
         //Rb2D.MovePosition(Rb2D.position + Direction.normalized * Speed * Time.deltaTime);
     }
     /// <summary>
@@ -83,9 +171,22 @@ public class Character : MonoBehaviour {
     // Es virtual para que los hijos tambien puedan agregar Datos a cargar
     public virtual void LoadData() {
         anim = GetComponent<Animator>();
-        Rb2D = GetComponent<Rigidbody2D>();
-        Coll = GetComponent<BoxCollider2D>();
+
+        controller = GetComponent<Controller2D>();
+
+        gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJumpApex, 2);
+        jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
+        if (jumpHeight == 0 && timeToJumpApex == 0) {
+            gravity = 0;
+            jumpVelocity = 0;
+        }
+
+        //Rb2D = GetComponent<Rigidbody2D>();
+        //Al principio del juego, la vida estara al 100%
         CurrentHealth = MaxHealth;
+        //Cargando los Shader para el efecto de ponerse de color blanco
+        textShader = Shader.Find("GUI/Text Shader");
+        Default = Shader.Find("Sprites/Default");
     }
     /// <summary>
     /// (Virtual Void) The Update method, it'll be in the Update event
@@ -93,9 +194,12 @@ public class Character : MonoBehaviour {
     // Es donde estara el gameplay, se llamara en cada frame en el Update()
     // Es Virtual para que los hijos puedan agregar Comandos
     public virtual void UpdateThis() {
+        //Si se pausa, no habra ningun Gameplay
         if (PauseMenu.GameIsPaused)
             return;
+        //Ajustar la vida para que no sobrepase los limites del 0% a 100%
         CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
+        //Variable auxiliar que se utiliza en los Timers de Cooldown
         timer = Time.timeSinceLevelLoad;
     }
     /// <summary>
@@ -104,43 +208,88 @@ public class Character : MonoBehaviour {
     // Es donde estara el gameplay, se llamara en cada FixedFrame del FixedUpdate()
     // Es Virtual para que los hijos puedan agregar Comandos
     public virtual void FixedUpdateThis() {
+        //Si se pausa, no habra ningun gameplay
         if (PauseMenu.GameIsPaused)
             return;
+
+        
+        //Movimiento basico
         Movement();
     }
     /// <summary>
     /// (Virtual Void) Character gets Damaged By a Meele Attack
     /// </summary>
     /// <param name="MA"></param>
-    // Es el metodo donde recibira daño Donovan con un MeeleAttack
+    // Es el metodo donde recibira daño Donovan de un MeeleAttack(Ataque Cuerpo a Cuerpo)
     public virtual void Damaged(MeeleAttack MA) {
+        //se resta la vida
         CurrentHealth -= MA.Damage;
-        if (CurrentHealth <= 0) Dead();
+        //Si llega a 0, morira
+        if (CurrentHealth <= 0) {
+            Dead();
+            return;
+        }
     }
     /// <summary>
     /// (Virtual Void) Character gets Damaged By a Firegun
     /// </summary>
     /// <param name="DA"></param>
-    // Es el metodo donde recibira daño Donovan con un Disparo
+    // Es el metodo donde recibira daño Donovan de un Disparo
     public virtual void Damaged(DistanceAttack DA) {
+        //se resta la vida
         CurrentHealth -= DA.Damage;
-        if (CurrentHealth <= 0) Dead();
+        //Si llega a 0, morira
+        if (CurrentHealth <= 0){
+            Dead();
+            return;
+        }
+    }
+
+    public List<SpriteRenderer> Sprites;
+
+    protected Shader textShader;
+    protected Shader Default;
+
+    public float Duration;
+
+    public IEnumerator Damaged()
+    {
+        for (int i = 0; i < Sprites.Count; i++) {
+            SpriteRenderer SP = Sprites[i];
+            SP.material.shader = textShader;
+            SP.color = Color.white;
+
+        }
+        yield return new WaitForSeconds(Duration);
+        for (int i = 0; i < Sprites.Count; i++)
+        {
+            SpriteRenderer SP = Sprites[i];
+            SP.material.shader = Default;
+            SP.color = Color.white;
+
+        }
     }
     /// <summary>
     /// (Virtual Void) With this Method Donovan Will be Death
     /// </summary>
     // Es el metodo donde morirá donovan
     public virtual void Dead(){
+        //De forma predeterminada, si el objeto muere, se destruye
         Destroy(transform.gameObject);
+        //Se puede sobreescribir con un overide
     }
     // En el Awake Solo estara El LoadData, 
     //ahi se pondra todo lo que habria en el Awake
     void Awake() {
+        //se cargan los datos
         LoadData();
     }
     // En el Update Solo estara El UpdateThis, 
     // ahi se pondra todo lo que habria en el Update
     void Update() {
+        // si esta pausado, entonces no habra ningun gameplay
+        if (PauseMenu.GameIsPaused)
+            return;
         UpdateThis();
     }
     // En el FixedUpdate Solo estara El FixedUpdateThis, 
@@ -149,14 +298,19 @@ public class Character : MonoBehaviour {
         FixedUpdateThis();
     }
 
+    public virtual void HasAttacked() {
+    
+    }
 }
 /// <summary>
 /// The Ammo Of the FireGun
 /// </summary>
+//La municnion que hay en un arma
 [System.Serializable]
-public class Ammo
-{
+public class Ammo{
+    //Municion disponible que hay en una cacerina
     public int AmmoInMag;
+    //Municion total disponible
     public int TotalAmmo;
 }
 
@@ -165,96 +319,130 @@ public class Human : Character {
     //Esta Clase tiene todo lo del Sistema de Disparos
     [System.Serializable]
     public class ShootingSystem  {
-
+        [HideInInspector]
         public StatesInfo.ShootingtStateInfo Shoot;
+
+        Attacks attacks;
         public void LoadData() {
-            JsonLoader.LoadData();
+            //Cargar el Json de los datos
+            attacks = JsonLoader<Attacks>.LoadData("Atacks");
+            
+            //Instanciar la municion en el Characer
             AmmoDonovan = new Ammo();
-            ShootAttack = JsonLoader.attacks.DistanceAttacks[indexGun];
-            instance = Arms.transform.parent.gameObject;
-            MeInThis = instance.GetComponent<Human>();
-            TempField = FieldOfFire;
-            Shootangle = angle;
-            viewShootAngle = DirFromAngle(Shootangle, false);
-            MaxIntense = ShootLight.intensity;
-            ShootLight.intensity = 0;
-            //PC = Donovan.GetComponent<Playercontroller>();
             AmmoDonovan.TotalAmmo = TotalAmmo;
             AmmoDonovan.AmmoInMag = ShootAttack.Magazine;
+
+            ShootAttack = attacks.DistanceAttacks[indexGun];
+
             ArmsAnim = Arms.GetComponent<Animator>();
+            instance = Arms.transform.parent.gameObject;
+
+            MeInThis = instance.GetComponent<Human>();
+            //Campo de tiro temporal
+            TempField = FieldOfFire;
+            //angulo de tiro temporal
+            Shootangle = angle;
+            //tangente de angulo de tiro temporal
+            viewShootAngle = DirFromAngle(Shootangle, false);
+            //PC = Donovan.GetComponent<Playercontroller>();
+            
             Shoot = MeInThis.StateInfo.Shooting;
+
+            ShootLight1.LoadData();
+            ShootLight2.LoadData();
+
+            ArmsSource = Arms.GetComponent<AudioSource>();
         }
 
         #region Movement
+        //Cooldown
         float lastpress;
+        //Cooldown del Dodge
         bool CanDodge;
+
         public float direction;
         public void WithgunMove(){
 
             Actions GameplayActions = MeInThis.GameplayActions;
+            bool CT = CanTurn();
+            CanDodge = MeInThis.Candodge(GameplayActions.DodgeAction);
 
-            if (GameplayActions.DodgeAction && !Shoot.Dodge && CanDodge)
+            if (GameplayActions.DodgeAction && !(Shoot.Dodge || Shoot.Damaged || Shoot.Reloading || !MeInThis.controller.collisions.below) && CanDodge
+                && !ArmsAnim.GetCurrentAnimatorStateInfo(0).IsName("Shooting"))
             {
 
                 lastpress = Time.timeSinceLevelLoad;
-                CanDodge = false;
                 MeInThis.anim.SetTrigger("Dodge");
                 if (MeInThis.Direction.x != 0) direction = MeInThis.Direction.x;
                 else direction = instance.transform.localScale.x;
 
             }
 
-            if (timer - lastpress > 1) CanDodge = true;
+            if (GameplayActions.ReloadAction && MeInThis.ShootingObject.CanReload() && MeInThis.controller.collisions.below 
+                && !ArmsAnim.GetCurrentAnimatorStateInfo(0).IsName("Shooting"))
+            {
+                MeInThis.anim.SetTrigger("Reload");
+            }
 
             if (Shoot.ShootingMovement)
             {
-
                 if (MeInThis.Direction.x != 0)
                 {
-                    if (CanTurn() || GameplayActions.RunAction)
+                    if (CT || GameplayActions.RunAction)
                         instance.transform.localScale = new Vector3(MeInThis.Direction.x, 1, 1);
                 }
                 if (GameplayActions.SecondaryAction)
                 {
                     MeInThis.Speed = MeInThis.GameplaySpeeds.AimWalkSpeed;
-                        mult = 0.5f;
+                    mult = 0.5f;
                 }
                 else if (GameplayActions.PrimaryAction)
                 {
                     MeInThis.Speed = MeInThis.GameplaySpeeds.ShootWalkSpeed;
-                        mult = 0.5f;
+                    mult = 0.5f;
                 }
-                else if (GameplayActions.RunAction && CanTurn())
+                else if (GameplayActions.RunAction && CT && MeInThis.Direction.x != 0)
                 {
                     mult = 1;
                     MeInThis.Speed = MeInThis.GameplaySpeeds.RunSpeed;
                 }
                 else
                 {
-                    if (CanTurn())
+                    if (CT)
                         mult = 0;
-                    MeInThis.Speed = MeInThis.GameplaySpeeds.WalkSpeed;
+                    if (!GameplayActions.RunAction)
+                        MeInThis.Speed = MeInThis.GameplaySpeeds.WalkSpeed;
                 }
             }
-            else if (Shoot.Dodge)
+            if (Shoot.Dodge)
             {
                 MeInThis.Direction = new Vector2(direction, 0);
                 MeInThis.Speed = MeInThis.GameplaySpeeds.DodgeSpeed;
-                instance.transform.localScale = new Vector3(-direction, 1, 1);
+                instance.transform.localScale = new Vector3(direction, 1, 1);
 
             }
-            else if (Shoot.InCover)
+            else if (Shoot.TransitionCover || Shoot.OnCover || Shoot.JumpingCover)
             {
-                
+                mult = 0;
+                //print(MeInThis.Tempdirection);
+                if (MeInThis.Tempdirection != 0)
+                    MeInThis.transform.localScale = new Vector3(MeInThis.Tempdirection, 1, 1);
+                if (Shoot.TransitionCover)
+                    MeInThis.Direction = Vector2.zero;
+            }
+            if (Shoot.Damaged || Shoot.Reloading) {
+                MeInThis.Speed = 0;
             }
             float dire;
-            if (!CanTurn() && mult != 1 && MeInThis.Direction.x != 0)
+            if (!CT && mult != 1 && MeInThis.Direction.x != 0)
                 dire = Mathf.Sign(AimDirection.x) * MeInThis.Direction.x;
             else
                 dire = 1;
 
-            MeInThis.Coll.enabled = !Shoot.Dodge;
+            MeInThis.AttackReciever.enabled = !Shoot.Dodge;
             MeInThis.anim.SetFloat("Movx", (Mathf.Abs(MeInThis.Direction.x)+ mult) * dire);
+            //print("(|" + MeInThis.Direction.x + "| + " + mult + ") * " + dire + " = " + 
+              //  (Mathf.Abs(MeInThis.Direction.x) + mult) * dire);
         }
         #endregion
 
@@ -279,21 +467,63 @@ public class Human : Character {
 
         public int indexGun = 0;
 
-        public Light ShootLight;
-        bool illuminate = false; 
-        float MaxIntense;
-        public float DegVelIntense;
+        public List<AudioClip> ShootingClips;
+
+        public GameObject ShootBlood;
+
+        public AudioSource ArmsSource { get; private set;}
+
+        [System.Serializable]
+        public class ShootLight{
+            public LightSprite Light;
+            [HideInInspector]
+            public Color LightColor;
+            public float MaxIntense { get; set; }
+            [Range(0,0.5f)]
+            public float DegTime;
+
+            public float DegVelIntense{ get; private set; }
+
+            public void LoadData(){
+                LightColor = Light.Color;
+                MaxIntense = LightColor.a;
+            }
+
+            public void Degratation(){
+                DegVelIntense = MaxIntense / DegTime;
+                if(LightColor.a > 0 + DegVelIntense * Time.deltaTime)
+                    LightColor.a -= DegVelIntense * Time.deltaTime;
+                else
+                    LightColor.a = 0;
+            }
+
+            public void Illuminate(){
+                LightColor.a = MaxIntense;
+            }
+
+            public void RefreshColor(){
+                Light.Color = LightColor;
+            }
+        }
+
+        public ShootLight ShootLight1;
+        public ShootLight ShootLight2;
+        bool illuminate = false;
 
 
         public void IlluminateShoot()
         {
             if (illuminate){
-                ShootLight.intensity = MaxIntense;
+                ShootLight1.Illuminate();
+                ShootLight2.Illuminate();
                 illuminate = false;
             }
-            else
-                if (ShootLight.intensity > 0)
-                    ShootLight.intensity = ShootLight.intensity - DegVelIntense;
+            else{
+                ShootLight1.Degratation();
+                ShootLight2.Degratation();
+            }
+            ShootLight1.RefreshColor();
+            ShootLight2.RefreshColor();
         }
 
         public LayerMask LayerShoot;
@@ -335,15 +565,20 @@ public class Human : Character {
             if (Time.timeSinceLevelLoad < TimeRest)
                 return true;
 
-            if (MeInThis.GameplayActions.PrimaryAction || MeInThis.GameplayActions.SecondaryAction)
+            if ((MeInThis.GameplayActions.PrimaryAction || MeInThis.GameplayActions.SecondaryAction) && !Shoot.Dodge && !Shoot.Reloading && MeInThis.controller.collisions.below)
                 LastPress = Time.timeSinceLevelLoad;
+
+            if (MeInThis.GameplayActions.DodgeAction && CanDodge) {
+                LastPress = 0;
+            }
+
 
             return timer - LastPress > TimeRest;
         }
 
         public void GetJsonData()
         {
-            ShootAttack = JsonLoader.attacks.DistanceAttacks[indexGun];
+            ShootAttack = attacks.DistanceAttacks[indexGun];
             TempField = ShootAttack.FieldOfFire;
             FireRate = ShootAttack.FireRate;
         }
@@ -374,8 +609,9 @@ public class Human : Character {
             Vector3 ViewAngleB = DirFromAngle(Balpha, false);
             Vector3 ViewAngle = DirFromAngle(angle, false);
 
+
             if (MeInThis.GameplayActions.PrimaryAction && Time.time >= NextTimeToFire 
-                    && !Shoot.Dodge && AmmoDonovan.AmmoInMag > 0 && Shoot.ShootCover){
+                    && !(Shoot.Dodge || Shoot.Reloading || Shoot.Damaged) && MeInThis.controller.collisions.below && AmmoDonovan.AmmoInMag > 0){
 
                 NextTimeToFire = Time.time + 1 / FireRate;
                 Shootangle = Random.Range(Aalpha, Balpha);
@@ -386,17 +622,18 @@ public class Human : Character {
                 {
                     if (hit.transform.tag == EnemyTag)
                     {
-                        hit.transform.gameObject.GetComponentInParent<BoxCollider2D>().SendMessage("Damaged", ShootAttack);
-                    }
-                    else
-                    {
-                        Destroy(hit.transform.gameObject);
+                        hit.transform.gameObject.SendMessage("Damaged", ShootAttack);
+                        Vector2 L = hit.transform.localPosition;
+                        GameObject Blood = Instantiate(ShootBlood, hit.point, Quaternion.Euler(0, 0, Mathf.Atan2(hit.normal.y, hit.normal.x) * Mathf.Rad2Deg));
+                        Destroy(Blood, 1f);
                     }
                     
                 }
                 illuminate = true;
+                MeInThis.PlayClip(ArmsSource, ShootingClips[1]);
                 AmmoDonovan.AmmoInMag--;
                 ArmsAnim.SetTrigger("Shoot");
+                Camera.main.GetComponent<FollowTarget>().GetDamage(0.2f, 0.3f, 0.01f, 35 * -Mathf.Sign(AimDirection.x));
             }
 
             Debug.DrawLine(Aim.transform.position, Aim.transform.position + ViewAngle * RadiusOfFire, Color.blue);
@@ -407,17 +644,23 @@ public class Human : Character {
 
         public void Reload()
         {
-            if (MeInThis.GameplayActions.ReloadAction && AmmoDonovan.AmmoInMag < ShootAttack.Magazine)
-            {
-                int RestAmmo = Mathf.Clamp(AmmoDonovan.TotalAmmo, 0, ShootAttack.Magazine - AmmoDonovan.AmmoInMag);
-                AmmoDonovan.AmmoInMag += RestAmmo;
-                AmmoDonovan.TotalAmmo -= RestAmmo;
-            }
+            if(MeInThis.GameplayActions.SecondaryActionDown && !(Shoot.Reloading || Shoot.Dodge || Shoot.Damaged || MeInThis.controller.collisions.below))
+                MeInThis.PlayClip(ArmsSource, ShootingClips[Random.Range(2,4)]);
+        }
+
+        public bool CanReload() {
+            return AmmoDonovan.AmmoInMag < ShootAttack.Magazine && !Shoot.Reloading && AmmoDonovan.TotalAmmo != 0;
+        }
+
+        public void ReloadAmmo() {
+            int RestAmmo = Mathf.Clamp(AmmoDonovan.TotalAmmo, 0, ShootAttack.Magazine - AmmoDonovan.AmmoInMag);
+            AmmoDonovan.AmmoInMag += RestAmmo;
+            AmmoDonovan.TotalAmmo -= RestAmmo;
         }
 
         public void RotateArm()
         {
-            if (!CanTurn() && !Shoot.Dodge && !Shoot.TransitionCover)
+            if (!CanTurn() && !(Shoot.Dodge || Shoot.Reloading || Shoot.Damaged))
             {
 
                 instance.transform.localScale = new Vector3(Mathf.Sign(AimDirection.x), 1, 1);
@@ -454,9 +697,10 @@ public class Human : Character {
         GameObject instance;
         public Human MeInThis { get; private set; }
 
+        [HideInInspector]
         public StatesInfo.FightingStateInfo Fight;
         public void LoadData() {
-            instance = AttackCollider.gameObject.transform.parent.transform.parent.gameObject;
+            instance = AttackCollider.transform.parent.gameObject;
             MeInThis = instance.GetComponent<Human>();
             Collscript = AttackCollider.gameObject.GetComponent<collscript>();
             Fight = MeInThis.StateInfo.Fight;
@@ -469,8 +713,9 @@ public class Human : Character {
 
             Actions GameplayActions = MeInThis.GameplayActions;
 
-            if (GameplayActions.DodgeAction && !Fight.Dodge && CanDodge)
-            {
+            bool CD = MeInThis.Candodge(GameplayActions.DodgeAction);
+            if (GameplayActions.DodgeAction && !(Fight.Dodge || Fight.Damaged || !MeInThis.controller.collisions.below) && CD){
+
                 lastpress = Time.timeSinceLevelLoad;
                 CanDodge = false;
                 MeInThis.anim.SetTrigger("Dodge");
@@ -479,9 +724,7 @@ public class Human : Character {
 
             }
 
-            if (timer - lastpress > 1) CanDodge = true;
-
-            if (!Fight.Dodge && !Fight.StAttacking0)
+            if (Fight.BattleMove)
             {
 
                 if (MeInThis.Direction.x != 0)
@@ -506,55 +749,132 @@ public class Human : Character {
             {
                 MeInThis.Direction = new Vector2(direction, 0);
                 MeInThis.Speed = MeInThis.GameplaySpeeds.DodgeSpeed;
-                instance.transform.localScale = new Vector3(-direction, 1, 1);
+                instance.transform.localScale = new Vector3(direction, 1, 1);
 
             }
-            else if (Fight.StAttacking0 && !GameplayActions.DodgeAction)
+            else if (Fight.Attacking && !GameplayActions.DodgeAction)
             {
 
                 MeInThis.Direction = Vector2.zero;
 
             }
+            else if (Fight.ExitCover || Fight.OnCover || Fight.EnterCover)
+            {
+                mult = 0;
+                print(MeInThis.Tempdirection);
+                if (MeInThis.Tempdirection != 0)
+                    MeInThis.transform.localScale = new Vector3(MeInThis.Tempdirection, 1, 1);
+                if (Fight.EnterCover || Fight.ExitCover)
+                    MeInThis.Direction = Vector2.zero;
+            }
+            else if (Fight.Damaged) {
+                MeInThis.Speed = 0;
+                print(true);
+            }
 
-            MeInThis.Coll.enabled = !Fight.Dodge;
+            MeInThis.AttackReciever.enabled = !Fight.Dodge;
             MeInThis.anim.SetFloat("Movx", Mathf.Abs(MeInThis.Direction.x/mult));
 
         }
 
         /*GESTOR DE LAS ANIMACIONES DEL SISTEMA DE COMBATE:
             Aqui se gestionan los combos para el sistema de combate*/
+        [System.Serializable]
+        public struct AttackCombo{
+            [Range(0,1)]
+            public float FirstAttack;
+            [Range(0,1)]
+            public float SecondAttack;
+        }
+        public AttackCombo AttackComboActiveTime;
         public void AnimationManager()
         {
-            if (Fight.StAttacking0)
+            if(Fight.BattleMove){
+                if (MeInThis.GameplayActions.PrimaryActionDown){
+                    Collscript.indexAttack = 0;
+                    MeInThis.anim.SetTrigger("Punch");
+                }
+            }
+            if (Fight.Attacking)
             {
+                if (Fight.LeftPunch){
 
-                if (MeInThis.StateInfo.PlaybackTime > 0.37)
-                    IsComboAnimationPlaying = false;
-                else
-                    IsComboAnimationPlaying = true;
+                    if (MeInThis.StateInfo.PlaybackTime > AttackComboActiveTime.FirstAttack && MeInThis.StateInfo.PlaybackTime < 0.89)
+                        if (MeInThis.GameplayActions.PrimaryActionDown){
+                            Collscript.indexAttack = 1;
+                            MeInThis.anim.SetTrigger("Punch2");
+                        }
+                        //IsComboAnimationPlaying = false;
+                    //else
+                        //IsComboAnimationPlaying = true;
+                }
+                else if (Fight.RightPunch){
+                    if (MeInThis.StateInfo.PlaybackTime > AttackComboActiveTime.SecondAttack && MeInThis.StateInfo.PlaybackTime < 0.89)
+                        if (MeInThis.GameplayActions.PrimaryActionDown){
+                            Collscript.indexAttack = 2;
+                            MeInThis.anim.SetTrigger("Punch3");
+                        }
+                        //IsComboAnimationPlaying = false;
 
+                    //else
+                        //IsComboAnimationPlaying = true;
+                }
+                else if (Fight.LeftUppercut)
+                {
 
-                if (MeInThis.StateInfo.PlaybackTime > 0.3 && MeInThis.StateInfo.PlaybackTime < 0.75) 
-                    AttackCollider.enabled = true;
-                else 
-                    AttackCollider.enabled = false;
-
-
+                }
+                else {
+                    //IsComboAnimationPlaying = true;
+                }
             }
         }
         /*ACTIVACION DEL ATAQUE:
                 Se activa el ataque y Se hace Set del trigger y la animacion del combo es true*/
         public void Attacks()
         {
-            if (IsComboAnimationPlaying == false)
+            if(false) //(IsComboAnimationPlaying == false)
             {
                 if (MeInThis.GameplayActions.PrimaryActionDown)
                 {
                     MeInThis.anim.SetTrigger("Punch");
+                    print("Punch");
                     IsComboAnimationPlaying = true;
                 }
             }
         }
+
+    }
+    [SerializeField]
+    float DodgeCooldown;
+
+    float LastPressDodge; 
+
+    public bool Candodge(bool TriggerDodge){
+
+
+        if(timer - LastPressDodge < DodgeCooldown)
+            return false;
+
+        if (TriggerDodge)
+            LastPressDodge = timer;
+        return true;
+        /*
+        if(WithGun){
+
+            if(StateInfo.Shooting.ShootingMovement)
+                return true;
+            else
+                return false;
+
+        }
+        else{
+
+            if(StateInfo.Fight.BattleMove || StateInfo.Fight.Attacking)
+                return true;
+            else
+                return false;
+
+        }*/
 
     }
     // Todas las acciones que un humano puede tener
@@ -595,7 +915,7 @@ public class Human : Character {
     }
     //Toda la informacion de los estados de animación
     [System.Serializable]
-    public struct StatesInfo
+    public class StatesInfo
     {
         [System.Serializable]
         public class ShootingtStateInfo
@@ -611,6 +931,11 @@ public class Human : Character {
             public bool TransitionCover;
             public bool InCover;
             public bool JumpingCover;
+            public bool Jump;
+            public bool Fall;
+            public bool InTheAir;
+            public bool Damaged;
+            public bool Reloading;
             #endregion
 
             public void GetStatesInfo(AnimatorStateInfo StateInfo)
@@ -624,14 +949,24 @@ public class Human : Character {
                 AimCover = StateInfo.IsName("AimCoverS");
                 ShootCover = StateInfo.IsName("ShootCoverS");
                 ExitCover = StateInfo.IsName("ExitCoverS");
+                JumpingCover = StateInfo.IsName("ExitCoverF");
 
-                TransitionCover = AimCover || EnterCover;
+                Jump = StateInfo.IsName("JumpS");
+                Fall = StateInfo.IsName("FallS");
+
+                Damaged = StateInfo.IsName("DamagedS");
+                Reloading = StateInfo.IsName("Recharge");
+
+                InTheAir = Jump || Fall;
+
+                TransitionCover = AimCover || EnterCover || JumpingCover;
                 InCover = TransitionCover || ShootCover || OnCover;
             }
         }
         [System.Serializable]
         public class FightingStateInfo
         {
+            #region Variables
             /// <summary>
             /// If its Dodging, return True(Read Only)
             /// </summary>
@@ -641,26 +976,61 @@ public class Human : Character {
             /// If its Attacking, return True(Read Only)
             /// </summary>
             // Variable Bool que sera verdadera si es Attacking(Cualquiera de los dos brazos)
-            public bool StAttacking0;
+            public bool Attacking;
             /// <summary>
-            /// If its attacking with de Right arm, return True(Read Only)
+            /// If its Punching with de Right arm, return True(Read Only)
             /// </summary>
-            // Variable Bool que sera verdadera si es Attacking con la derecha
-            public bool StAttacking1;
+            // Variable Bool que sera verdadera si es un golpe con la derecha
+            public bool RightPunch;
             /// <summary>
-            /// If its attacking with de Left arm, return True(Read Only)
+            /// If its Punching with de Right arm, return True(Read Only)
             /// </summary>
-            // Variable Bool que sera verdadera si es Attacking con la izquierda
-            public bool StAttacking2;
+            // Variable Bool que sera verdadera si es un golpe con la Izquierda
+            public bool LeftPunch;
+            /// <summary>
+            /// If its an Uppercut with de Left arm, return True(Read Only)
+            /// </summary>
+            // Variable Bool que sera verdadera si es un Uppercut con la izquieda
+            public bool LeftUppercut;
+
+            public bool BattleMove;
+
+            public bool EnterCover;
+            public bool OnCover;
+            public bool ExitCover;
+
+            public bool InCover;
+            
+            public bool Jump;
+            public bool Fall;
+            public bool InTheAir;
+
+            public bool Damaged;
+            #endregion
 
             public void GetStatesInfo(AnimatorStateInfo StateInfo, Human H)
             {
-                Dodge = StateInfo.IsName("Dodge");
+                Dodge = StateInfo.IsName("DodgeF");
 
-                StAttacking0 = StateInfo.IsName("Punch1") || StateInfo.IsName("Punch2");
-                StAttacking1 = StateInfo.IsName("Punch1");
-                StAttacking2 = StateInfo.IsName("Punch2");
-                if (StateInfo.IsName("Battlemove"))
+                EnterCover = StateInfo.IsName("EnterCoverF");
+                OnCover = StateInfo.IsName("OnCoverF");
+                ExitCover = StateInfo.IsName("ExitCoverF");
+
+                InCover = EnterCover || OnCover || ExitCover;
+
+                Jump = StateInfo.IsName("Jump");
+                Fall = StateInfo.IsName("Fall");
+
+                InTheAir = Jump || Fall;
+
+                Damaged = StateInfo.IsName("DamagedF");
+
+                RightPunch = StateInfo.IsName("RightPunchF");
+                LeftPunch = StateInfo.IsName("LeftPunchF");
+                LeftUppercut = StateInfo.IsName("LeftUppercutF");
+                Attacking = RightPunch || LeftPunch || LeftUppercut;
+                BattleMove = StateInfo.IsName("Battlemove");
+                if (BattleMove)
                     H.FightingObject.IsComboAnimationPlaying = false;
             }
         }
@@ -699,8 +1069,11 @@ public class Human : Character {
         /// The Recopilation of The States and Bool Method
         /// </summary>
         // En este metodo se recopilan todos los states Info 
-        public void GetStatesInfo(Human H)
+        public void GetStatesInfo(Human H, AnimatorStateInfo Stateinf)
         {
+            //recopilar la informacion de los estados de los personajes
+            //IMPORTANTE para la gestion de animacion y son bastante precisos para las transiciones y demas
+            StateInfo = Stateinf;
             PlaybackTime = StateInfo.normalizedTime;
 
             Shooting.GetStatesInfo(StateInfo);
@@ -711,19 +1084,20 @@ public class Human : Character {
             H.FightingObject.Fight = Fight;
         }
 
-        public StatesInfo(AnimatorStateInfo Stateinf) {
+        public StatesInfo() {
             Shooting = new ShootingtStateInfo();
             Fight = new FightingStateInfo();
             Standard = new StandardStateInfo();
 
             PlaybackTime = 0;
-            //recopilar la informacion de los estados de los personajes
-            //IMPORTANTE para la gestion de animacion y son bastante precisos para las transiciones y demas
-            StateInfo = Stateinf;
+            
         }
     }
 
     public StatesInfo StateInfo { get; private set; }
+
+    [HideInInspector]
+    public float Tempdirection;
 
     /// <summary>
     /// If its with Gun, return True
@@ -747,7 +1121,7 @@ public class Human : Character {
     bool CanShowup() {
         if (WithGun && ShootingObject.mult != 1){
             if (!ShootingObject.CanTurn()) {
-                if (StateInfo.Shooting.ShootingMovement || StateInfo.Shooting.OnCover)
+                if (StateInfo.Shooting.ShootingMovement || StateInfo.Shooting.ShootCover)
                     return true;
             }
         }
@@ -775,8 +1149,9 @@ public class Human : Character {
         }
 
         ShootingObject.IlluminateShoot();
-        if (GameplayActions.QuitShootAction) WithGun = !WithGun;
+
         ShootingObject.ArmsAnim.SetBool("CanShowup",CanShowup());
+        //print(CanShowup());
     }
 
     /// <summary>
@@ -808,16 +1183,40 @@ public class Human : Character {
      * Tendriamos una rutina de Base + Agregado
     */
     public override void LoadData() {
+        StateInfo = new StatesInfo();
         base.LoadData();
         ShootingObject.LoadData();
         FightingObject.LoadData();
-        
+        LastPressDodge = -DodgeCooldown;        
     }
 
     public override void UpdateThis(){
         base.UpdateThis();
-        StateInfo = new StatesInfo(anim.GetCurrentAnimatorStateInfo(0));
-        StateInfo.GetStatesInfo(this);
+
+        StateInfo.GetStatesInfo(this, anim.GetCurrentAnimatorStateInfo(0));
         ShootingObject.GetJsonData();
     }
+
+    public override void HasAttacked(){
+        FightingObject.IsComboAnimationPlaying = false;
+    }
+
+    public Vector2 RepositionVar = new Vector2(2, 3.8f);
+    public void Reposition() {
+        transform.position = transform.position + new Vector3(RepositionVar.x * transform.localScale.x, RepositionVar.y);
+    }
+
+    public void PlayClip(AudioSource A, AudioClip Clip){
+        A.clip = Clip;
+        A.Play();
+    }
+
+    public List<AudioClip> Punchclips;
+
+    public void PlayPunchClip(int index){
+        AudioSource A = GetComponent<AudioSource>();
+        A.clip = Punchclips[index];
+        A.Play();
+    }
+
 }

@@ -7,38 +7,34 @@ using System.IO;
 /// <summary>
 /// Its The load of a data from Json
 /// </summary>
-public static class JsonLoader{
-
-    //El path del archivo a cargar
-    private static string FilePath;
-    //El Json a cargar
-    private static string JsonString;
-    //El objeto que cargara todos los datos
-    //Muy parecido a una base de datos Orientada a Objetos (OO)
-    /// <summary>
-    /// The atacks readed from Json DataBase
-    /// </summary>
-    public static Attacks attacks;
-    
-/*    void Awake() {
-        FilePath = Application.dataPath + "/Atacks.json";
-        JsonString = File.ReadAllText(FilePath);
-        Attacks Attacks = JsonUtility.FromJson<Attacks>(JsonString);
-        //JsonString = JsonUtility.ToJson(Attacks);
-        //File.WriteAllText(FilePath, JsonString);
-    }*/
-
+public class JsonLoader <T>{
     /// <summary>
     /// Load all the Data from the Json 
     /// (Use this Only one time in any Awake Method of the Scene)
     /// </summary>
-    public static void LoadData() {
+    public static T LoadData(string FileName) {
         //Se obtiene el path de donde esta el archivo
-        FilePath = Application.dataPath + "/Scripts/Atacks.json";
+        string FilePath = Application.dataPath + "/JSONS/" + FileName + ".json";
         //Se lee el texto de forma plana
-        JsonString = File.ReadAllText(FilePath);
+        string JsonString = File.ReadAllText(FilePath);
         //Se carga los datos en el objeto
-        attacks = JsonUtility.FromJson<Attacks>(JsonString);
+        T Item = JsonUtility.FromJson<T>(JsonString);
+
+        return Item;
+    }
+
+    public static void UpdateData(T Data, string FileName) {
+        try
+        {
+            string FilePath = Application.dataPath + "/JSONS/" + FileName + ".json";
+            string JsonString = JsonUtility.ToJson(Data);
+            File.WriteAllText(FilePath, JsonString); 
+        }
+        catch (System.Exception)
+        {
+            Debug.Log("Error!");
+        }
+        
     }
     //Con esto ya puedes utilizar los datos del json
 }
@@ -52,6 +48,13 @@ public class MeeleAttack
 {
     public string Name;
     public int Damage;
+}
+
+[System.Serializable]
+public class NewMeeleAttack {
+    public string Name;
+    public int Damage;
+    public Impact Impulse;
 }
 
 
@@ -68,6 +71,17 @@ public class DistanceAttack
     public int Magazine;
     public int Damage;
 }
+[System.Serializable]
+public class NewDistanceAttack
+{
+    public string Name;
+    public float FireRate;
+    public float FieldOfFire;
+    public float Recoil;
+    public int Magazine;
+    public int Damage;
+    public Impact Impulse;
+}
 
 
 /// <summary>
@@ -78,5 +92,13 @@ public class Attacks
 {
     public List<MeeleAttack> MeeleAttacks;
     public List<DistanceAttack> DistanceAttacks;
+
+}
+
+[System.Serializable]
+public class NewAttacks
+{
+    public List<NewMeeleAttack> MeeleAttacks;
+    public List<NewDistanceAttack> DistanceAttacks;
 
 }

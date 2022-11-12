@@ -11,6 +11,9 @@ public class RebelScript : Human {
     //Objetivo de la IA
     public GameObject Objective;
 
+    //Variable auxiliar para la funcion trigger
+    bool Auxiliar;
+
     public override void LoadData()
     {
         //BASE
@@ -46,7 +49,7 @@ public class RebelScript : Human {
             GameplayActions.PrimaryAction = false;
             Direction = new Vector2(0, 0);
         }
-        GameplayActions.PrimaryActionDown = Trigger(GameplayActions.PrimaryAction);
+        GameplayActions.PrimaryActionDown = Trigger(GameplayActions.PrimaryAction, ref Auxiliar);
         GameplayActions.ReloadAction = ShootingObject.AmmoDonovan.AmmoInMag <= 0;
         ArmsManager(Objective.transform.position + Vector3.up * 6);
         print(ShootingObject.ShootAttack.Name + "/" + ShootingObject.AmmoDonovan.AmmoInMag + "-" + ShootingObject.AmmoDonovan.TotalAmmo);

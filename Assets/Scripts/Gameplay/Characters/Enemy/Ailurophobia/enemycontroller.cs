@@ -4,16 +4,22 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class enemycontroller : MonoBehaviour {
+    [System.Serializable]
+    public class Speeds {
+        public float JumpSpeed;
+        public float MoveSpeed;
+    }
 
     //La velocidad y el poder de salto
-    public float speed = 10f;
+    public Speeds speeds;
+    public float speed;
     public float JumpPower = 10f;
 
     Animator anim;
-    Rigidbody2D Rb2D;
+    //Rigidbody2D Rb2D;
     
     //inicializando la variable de vida
-    float Health = 100f;
+    public float Health = 100f;
 
     //Donovan es el objetivo a seguir
     //Aqui se obtienen los datos de donovan como su posicion
@@ -28,14 +34,24 @@ public class enemycontroller : MonoBehaviour {
     //La direccion de hacia donde esta donovan
     float direction = 1;
 
+    [System.Serializable]
+    public class Distances {
+        public float DistanceToJump;
+        public float DistanceToBite;
+        public float DistanceToAttack;
+    }
+
     //Distancia que hay entre donovan y Ailurofobia
     public float Distance;
+    public Distances DistToAttack;
     //Variables del salto
     private bool Jump;
     private bool CanJump;
     private bool Canchange;
     private bool NoMoreDamage=false;
     private int CountDamage=0;
+
+    public bool ControlDirection;
     
     //Se activan con un AnimationEvent
     public void change() {
@@ -44,20 +60,26 @@ public class enemycontroller : MonoBehaviour {
     }
     public void jump() {
         //Sera un pequeño impulso hacia arriba para darle credibilidad a la animacion
-        Rb2D.AddForce(Vector2.up * JumpPower, ForceMode2D.Impulse);
+        //Rb2D.AddForce(Vector2.up * JumpPower, ForceMode2D.Impulse);
     }
 
     //Aqui se Mueve y cambia su Scale Ailurofobia
     void Move() {
-        //movimiento
-        transform.position = Vector2.MoveTowards(
-                transform.position, PosDonovan,
-                speed * Time.deltaTime);
+        if(!ControlDirection){
+            //movimiento
+            transform.position = Vector2.MoveTowards(
+                    transform.position, PosDonovan,
+                    speed * Time.deltaTime);
 
-        //giro
-        transform.localScale = new Vector3(direction, 1, 1);
-        //Animacion de correr
-        anim.SetFloat("Direction", Mathf.Abs(direction));
+            //giro
+            transform.localScale = new Vector3(direction, 1, 1);
+
+            //Animacion de correr
+            anim.SetFloat("Direction", Mathf.Abs(direction));
+        }
+            
+        else
+            anim.SetFloat("Direction", 0f);
     }
 
     //Aqui se gestionan los movimiento dependiendo del estado
@@ -67,6 +89,9 @@ public class enemycontroller : MonoBehaviour {
         bool prejump = stateinfo.IsName("Prejump");
         bool jumping = stateinfo.IsName("Jump");
         bool postjump = stateinfo.IsName("Postjump");
+        bool AttackBite = stateinfo.IsName("AttackBite");
+        bool Movement = stateinfo.IsName("Movement");
+        bool Damaged = stateinfo.IsName("Damaged");
         float jumptime = stateinfo.normalizedTime;
 
         //Se calcula la distancia entre Ailurofobia y Donovan
@@ -85,11 +110,27 @@ public class enemycontroller : MonoBehaviour {
             if (prejump || jumping || postjump)
                 Collscript.indexAttack = 3;
         }
-
-        if (jumping)
+        if (Movement)
+        {
+            //Ahora si puede volver a saltar
+            CanJump = true;
+            //correra con una velocidad de:
+            speed = speeds.MoveSpeed;
+            //Se obtiene la posicion de donovan en X
+            PosDonovan = new Vector2(Donovan.transform.position.x, transform.position.y);
+            //Se obtiene la direccion hacia donde esta donovan
+            direction = Mathf.Sign((transform.position.x - Donovan.transform.position.x));
+            //si la distancia es menor a 20, entonces Ailurofobia Saltara
+            if (Distance < DistToAttack.DistanceToJump && CanJump)
+            {
+                Jump = true;
+                anim.SetTrigger("jump");
+            }
+        }
+        else if (jumping)
         {
             //Saltando tendra una velocidad horizontal de:
-            speed = 30f;
+            speed = speeds.JumpSpeed;
         }
             //Antes de saltar y despues de saltar
         else if (postjump || prejump)
@@ -105,72 +146,103 @@ public class enemycontroller : MonoBehaviour {
                 CountDamage = 0;
             }
         }
-            //Si no esta ni saltando, ni recibiendo un golpe, entonces esta Corriendo hacia Donovan
-        else if (!jumping && !postjump && !prejump && !stateinfo.IsName("Damaged"))
-        {
-            //Ahora si puede volver a saltar
-            CanJump = true;
-            //correra con una velocidad de:
-            speed = 18f;
-            //Se obtiene la posicion de donovan en X
-            PosDonovan = new Vector2(Donovan.transform.position.x, transform.position.y);
-            //Se obtiene la direccion hacia donde esta donovan
-            direction = Mathf.Sign((transform.position.x - Donovan.transform.position.x));
-            //si la distancia es menor a 20, entonces Ailurofobia Saltara
-            if (Distance < 20 && CanJump)
-            {
-                Jump = true;
-                anim.SetTrigger("jump");
-            }
-        }
             //Siendo lastimado
-        else if (stateinfo.IsName("Damaged") && !NoMoreDamage)
+        else if (Damaged && !NoMoreDamage)
         {
             //no se movera, y tampoco podra saltar
             speed = 0;
             Jump = false;
             CanJump = false;
         }
+        else if (AttackBite) {
+            speed = 0;
+            Collscript.indexAttack = 5;
+        }
     }
 
 	// Use this for initialization
 	void Start () {
         anim = GetComponent<Animator>();
-        Rb2D = GetComponent<Rigidbody2D>();
+        //Rb2D = GetComponent<Rigidbody2D>();
+
+        textShader = Shader.Find("GUI/Text Shader");
+        Default = Shader.Find("Sprites/Default");
+        Dead = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        if (Dead)
+            return;
         MoveManager();
         Move();
 	}
-    
+
+    public bool Dead { get; private set; }
+
     public void Damaged(MeeleAttack MA){
-        if (!NoMoreDamage) {
-            Health -= MA.Damage;
-            CountDamage++;
-            if (CountDamage > 1 && !NoMoreDamage) {
-                NoMoreDamage = true;
-                Jump = true;
-                CanJump = true;
-                anim.SetTrigger("jump");
+        if (!Dead) {
+            if (!NoMoreDamage)
+            {
+                StartCoroutine(Damaged());
+                Health -= MA.Damage;
+                if (Health <= 0) {
+                    Death();
+                    return;
+                }
+                CountDamage++;
+                if (CountDamage > 2 && !NoMoreDamage)
+                {
+                    NoMoreDamage = true;
+                    Jump = true;
+                    CanJump = true;
+                    anim.SetTrigger("jump");
+                }
+                else if (MA.Damage > 5 && !NoMoreDamage)
+                    anim.SetTrigger("Damaged");
             }
-            else if(MA.Damage>5 && !NoMoreDamage)
-                anim.SetTrigger("Damaged");
-            
-            print(MA.Damage);
         }
-        if (Health <= 0) Dead();
     }
     public void Damaged(DistanceAttack DA) {
-        Health -= DA.Damage;
-        if(DA.Damage>5)
-                anim.SetTrigger("Damaged");
-            
-            print(DA.Damage);
-        if (Health <= 0) Dead();
+        if (!Dead) {
+            StartCoroutine(Damaged());
+            Health -= DA.Damage;
+            if (Health <= 0) {
+                Death();
+                return;
+            }
+        }
     }
-    public void Dead() {
-        PauseMenu.Won = true;
+    public void Death() {
+        anim.SetTrigger("Dead");
+        Dead = true;
+        //Destroy(gameObject, 3);
+    }
+
+
+    public List<SpriteRenderer> Sprites;
+
+    Shader textShader;
+    Shader Default;
+
+    public float Duration;
+
+    public IEnumerator Damaged()
+    {
+        for (int i = 0; i < Sprites.Count; i++)
+        {
+            SpriteRenderer SP = Sprites[i];
+            SP.material.shader = textShader;
+            SP.color = Color.white;
+
+        }
+        yield return new WaitForSeconds(Duration);
+        for (int i = 0; i < Sprites.Count; i++)
+        {
+            SpriteRenderer SP = Sprites[i];
+            SP.material.shader = Default;
+            SP.color = Color.white;
+
+        }
     }
 }

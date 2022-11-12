@@ -1,0 +1,534 @@
+fileFormatVersion: 2
+guid: 5e2f44494a77b734f8ca0f5f55a414e5
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4767043862841115717
+    second: BelonefobiaWalking_0
+  - first:
+      213: -1730717901175632291
+    second: BelonefobiaWalking_1
+  - first:
+      213: -7421462176798735186
+    second: BelonefobiaWalking_2
+  - first:
+      213: 5278150689092212179
+    second: BelonefobiaWalking_3
+  - first:
+      213: 3425037448872020058
+    second: BelonefobiaWalking_4
+  - first:
+      213: 6609055060909564609
+    second: BelonefobiaWalking_5
+  - first:
+      213: 3927063816839487870
+    second: BelonefobiaWalking_6
+  - first:
+      213: 4042032466495951759
+    second: BelonefobiaWalking_7
+  - first:
+      213: 2548929514949840197
+    second: BelonefobiaWalking_8
+  - first:
+      213: 7908791510435376340
+    second: BelonefobiaWalking_9
+  - first:
+      213: -2407258727442006112
+    second: BelonefobiaWalking_10
+  - first:
+      213: -3973835228300867298
+    second: BelonefobiaWalking_11
+  - first:
+      213: -5957066476494370879
+    second: BelonefobiaWalking_12
+  - first:
+      213: 7998764632879165742
+    second: BelonefobiaWalking_13
+  - first:
+      213: -8764106902333255008
+    second: BelonefobiaWalking_14
+  - first:
+      213: -4668447293345532436
+    second: BelonefobiaWalking_15
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 8.6
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BelonefobiaWalking_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.7800634, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3688ee3f73d49c74a81a2d8552ba4640
+      internalID: 4767043862841115717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BelonefobiaWalking_1
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.7800634, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 799733636977ef146bd33d5a3f49717b
+      internalID: -1730717901175632291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BelonefobiaWalking_2
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.7800634, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06f335e997857354285fd04eca1bd9da
+      internalID: -7421462176798735186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BelonefobiaWalking_3
+      rect:
+        serializedVersion: 2
+        x: 415
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.7800634, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a807edba9bc57224c8ca4153bd236012
+      internalID: 5278150689092212179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BelonefobiaWalking_4
+      rect:
+        serializedVersion: 2
+        x: 553
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.7800634, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 937166ef826a31b4ea7d5f6cc58b4839
+      internalID: 3425037448872020058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BelonefobiaWalking_5
+      rect:
+        serializedVersion: 2
+        x: 691
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.7800634, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9eb166c165dc1fe42a48637d88b73b5e
+      internalID: 6609055060909564609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BelonefobiaWalking_6
+      rect:
+        serializedVersion: 2
+        x: 829
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.7800634, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a59f734e7761acd49b857eb8dd635637
+      internalID: 3927063816839487870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BelonefobiaWalking_7
+      rect:
+        serializedVersion: 2
+        x: 967
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.7800634, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7714b90d7494ef64d80b0950621c6bec
+      internalID: 4042032466495951759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BelonefobiaWalking_8
+      rect:
+        serializedVersion: 2
+        x: 1105
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.7800634, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29d692e3865e25f46ba35316e1381c55
+      internalID: 2548929514949840197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BelonefobiaWalking_9
+      rect:
+        serializedVersion: 2
+        x: 1243
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.7800634, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b99ced6f6e902f2409c7d5acc47a3bcf
+      internalID: 7908791510435376340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BelonefobiaWalking_10
+      rect:
+        serializedVersion: 2
+        x: 1381
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.7800634, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71724d032e1825a4189f0f4487da0330
+      internalID: -2407258727442006112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BelonefobiaWalking_11
+      rect:
+        serializedVersion: 2
+        x: 1519
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.7800634, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14a96f37b1c160e48bcf00249a367979
+      internalID: -3973835228300867298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BelonefobiaWalking_12
+      rect:
+        serializedVersion: 2
+        x: 1657
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.7800634, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb633739b67f56042bce708985d24e28
+      internalID: -5957066476494370879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BelonefobiaWalking_13
+      rect:
+        serializedVersion: 2
+        x: 1795
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.7800634, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 415cd3b93a069c74fb99ccbd064db911
+      internalID: 7998764632879165742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BelonefobiaWalking_14
+      rect:
+        serializedVersion: 2
+        x: 1933
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.7800634, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05f292b0319a3134c85874f3f8c701a8
+      internalID: -8764106902333255008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BelonefobiaWalking_15
+      rect:
+        serializedVersion: 2
+        x: 2071
+        y: 1
+        width: 136
+        height: 78
+      alignment: 9
+      pivot: {x: 0.7800634, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c5427233559eb44e8b261068c073031
+      internalID: -4668447293345532436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      BelonefobiaWalking_2: -7421462176798735186
+      BelonefobiaWalking_9: 7908791510435376340
+      BelonefobiaWalking_0: 4767043862841115717
+      BelonefobiaWalking_1: -1730717901175632291
+      BelonefobiaWalking_8: 2548929514949840197
+      BelonefobiaWalking_5: 6609055060909564609
+      BelonefobiaWalking_6: 3927063816839487870
+      BelonefobiaWalking_13: 7998764632879165742
+      BelonefobiaWalking_4: 3425037448872020058
+      BelonefobiaWalking_15: -4668447293345532436
+      BelonefobiaWalking_7: 4042032466495951759
+      BelonefobiaWalking_11: -3973835228300867298
+      BelonefobiaWalking_12: -5957066476494370879
+      BelonefobiaWalking_10: -2407258727442006112
+      BelonefobiaWalking_14: -8764106902333255008
+      BelonefobiaWalking_3: 5278150689092212179
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

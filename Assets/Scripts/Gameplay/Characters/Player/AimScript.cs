@@ -4,6 +4,7 @@ using UnityEngine;
 
 
 public class AimScript : MonoBehaviour {
+
     [HideInInspector]
     public DistanceAttack ShootAttack;
     Playercontroller PC;
@@ -64,6 +65,8 @@ public class AimScript : MonoBehaviour {
     float suma = 1;
     float mult = 1;
 
+    Attacks attacks;
+
     public Vector3 DirFromAngle(float AngleInDegrees,bool isGlobal) {
         if (!isGlobal) {
             AngleInDegrees += transform.eulerAngles.y;
@@ -73,7 +76,8 @@ public class AimScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        ShootAttack = JsonLoader.attacks.DistanceAttacks[indexGun];
+        attacks = JsonLoader<Attacks>.LoadData("Attacks");
+        ShootAttack = attacks.DistanceAttacks[indexGun];
         TempField = FieldOfFire;
         Shootangle = angle; 
         viewShootAngle = DirFromAngle(Shootangle, false);
@@ -99,12 +103,12 @@ public class AimScript : MonoBehaviour {
         CanMove = timer - lastpress > TimeRest;
         if (Input.GetKeyDown(KeyCode.E)) {
             indexGun++;
-            if (indexGun >= JsonLoader.attacks.DistanceAttacks.ToArray().Length) {
+            if (indexGun >= attacks.DistanceAttacks.ToArray().Length) {
                 indexGun = 0;
             }
         }
 
-        ShootAttack = JsonLoader.attacks.DistanceAttacks[indexGun];
+        ShootAttack = attacks.DistanceAttacks[indexGun];
         TempField = ShootAttack.FieldOfFire;
         FireRate = ShootAttack.FireRate;
         suma = 1;

@@ -1,0 +1,384 @@
+fileFormatVersion: 2
+guid: 0c5903ce25caa1f43982a567d56888c0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8661592707414793457
+    second: TanatofobiaAF-Death_0
+  - first:
+      213: -7198742894251229609
+    second: TanatofobiaAF-Death_1
+  - first:
+      213: 4193936296462734377
+    second: TanatofobiaAF-Death_2
+  - first:
+      213: -5444840545403295696
+    second: TanatofobiaAF-Death_3
+  - first:
+      213: 5835387929097316788
+    second: TanatofobiaAF-Death_4
+  - first:
+      213: -7903903962157471924
+    second: TanatofobiaAF-Death_5
+  - first:
+      213: -1168888004265000071
+    second: TanatofobiaAF-Death_6
+  - first:
+      213: 3680366029835045922
+    second: TanatofobiaAF-Death_7
+  - first:
+      213: -7390433088398401145
+    second: TanatofobiaAF-Death_8
+  - first:
+      213: -4956641936719974364
+    second: TanatofobiaAF-Death_9
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 8.6
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TanatofobiaAF-Death_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 113
+        height: 83
+      alignment: 9
+      pivot: {x: 0.6708911, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5761dfae46952bd40a269ad1554f0750
+      internalID: 8661592707414793457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TanatofobiaAF-Death_1
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 1
+        width: 113
+        height: 83
+      alignment: 9
+      pivot: {x: 0.6708911, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca9aec196e438f5409655ac6a921c2e0
+      internalID: -7198742894251229609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TanatofobiaAF-Death_2
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 1
+        width: 113
+        height: 83
+      alignment: 9
+      pivot: {x: 0.6708911, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36d1e086e7590c949a74a0c2c2a6125c
+      internalID: 4193936296462734377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TanatofobiaAF-Death_3
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 1
+        width: 113
+        height: 83
+      alignment: 9
+      pivot: {x: 0.6708911, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dff64c68b10d4e04eaf208bada49a967
+      internalID: -5444840545403295696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TanatofobiaAF-Death_4
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 1
+        width: 113
+        height: 83
+      alignment: 9
+      pivot: {x: 0.6708911, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9abaf28ee7938834a8a4dfe14b1ea426
+      internalID: 5835387929097316788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TanatofobiaAF-Death_5
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 1
+        width: 113
+        height: 83
+      alignment: 9
+      pivot: {x: 0.6708911, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 103dae2f757640b4db4824c30eac9950
+      internalID: -7903903962157471924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TanatofobiaAF-Death_6
+      rect:
+        serializedVersion: 2
+        x: 691
+        y: 1
+        width: 113
+        height: 83
+      alignment: 9
+      pivot: {x: 0.6708911, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25fa48dc35d9efb48b8d15c2360077cd
+      internalID: -1168888004265000071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TanatofobiaAF-Death_7
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 1
+        width: 113
+        height: 83
+      alignment: 9
+      pivot: {x: 0.6708911, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e48dd8f009356094685a7e56d8547076
+      internalID: 3680366029835045922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TanatofobiaAF-Death_8
+      rect:
+        serializedVersion: 2
+        x: 921
+        y: 1
+        width: 113
+        height: 83
+      alignment: 9
+      pivot: {x: 0.6708911, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0f239af1d2d244499f39b072902b1b4
+      internalID: -7390433088398401145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TanatofobiaAF-Death_9
+      rect:
+        serializedVersion: 2
+        x: 1036
+        y: 1
+        width: 113
+        height: 83
+      alignment: 9
+      pivot: {x: 0.6708911, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 569ee38d739f11f4894b87991c97d50f
+      internalID: -4956641936719974364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      TanatofobiaAF-Death_7: 3680366029835045922
+      TanatofobiaAF-Death_1: -7198742894251229609
+      TanatofobiaAF-Death_4: 5835387929097316788
+      TanatofobiaAF-Death_0: 8661592707414793457
+      TanatofobiaAF-Death_2: 4193936296462734377
+      TanatofobiaAF-Death_3: -5444840545403295696
+      TanatofobiaAF-Death_5: -7903903962157471924
+      TanatofobiaAF-Death_6: -1168888004265000071
+      TanatofobiaAF-Death_9: -4956641936719974364
+      TanatofobiaAF-Death_8: -7390433088398401145
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

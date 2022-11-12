@@ -12,8 +12,7 @@ public class check_ground : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D col) {
         if (col.gameObject.tag == "Cover" && player.GameplayActions.RunAction) {
-            player.ShootingObject.direction = player.Direction.x;
-            print(player.Direction.x);
+            player.Tempdirection = player.Direction.x;
         }
     }
 
@@ -28,7 +27,6 @@ public class check_ground : MonoBehaviour {
     }
 
     void OnCollisionExit2D(Collision2D col){
-        
         if (col.gameObject.tag == "Ground"){
             player.Grounded = false;
         }
